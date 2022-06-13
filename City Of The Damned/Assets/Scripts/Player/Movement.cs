@@ -9,9 +9,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private CharacterController charController;
     [SerializeField] private Transform groundChecker;
     [SerializeField] private LayerMask groundMask;
-    [SerializeField] private float movementSpeed, gravity, jumpForce, jumpSpeedMult, jumpSpeedMultDuration, groundCheckerRadius;
+    [SerializeField] private float movementSpeed, gravity, jumpForce, movementSpeedJumpMod, movementSpeedCrouchMult, jumpSpeedMultDuration, groundCheckerRadius;
     private Vector3 movementActual;
-    private float movementSpeedJumpMod, groundCheckerYPos, charControllerHeight;
+    private float movementSpeedCrouchMultActual = 1, movementSpeedJumpModActual, groundCheckerYPos, charControllerHeight;
 
     // "PUSHES" THE PLAYER ALONG THEIR PATH OF TRAVEL WHEN JUMPING
     private IEnumerator HorizontalJumpForce()
@@ -22,7 +22,7 @@ public class Movement : MonoBehaviour
         while (lerpTime < 1.0f)
         {
             lerpTime += Time.deltaTime / jumpSpeedMultDuration;
-            movementSpeedJumpMod = Mathf.Lerp(originalVector * jumpSpeedMult, 0, lerpTime);
+            movementSpeedJumpModActual = Mathf.Lerp(originalVector * movementSpeedJumpMod, 0, lerpTime);
 
             yield return null;
         }
@@ -47,7 +47,8 @@ public class Movement : MonoBehaviour
     {
         bool isGrounded = Physics.CheckSphere(groundChecker.position, groundCheckerRadius, groundMask);
         float movementInput = Input.GetAxis("Horizontal");
-        movementActual = new Vector3(movementInput + movementSpeedJumpMod, movementActual.y);
+        movementActual = new Vector3((movementInput + movementSpeedJumpModActual) * movementSpeedCrouchMultActual, movementActual.y, 0);
+        Debug.Log(movementSpeedCrouchMultActual);
 
         // JUMPING AND GRAVITY
         if (isGrounded)
@@ -71,6 +72,7 @@ public class Movement : MonoBehaviour
         // CROUCHING
         if (Input.GetButtonDown("Crouch"))
         {
+            movementSpeedCrouchMultActual = movementSpeedCrouchMult;
             groundChecker.localPosition = new Vector3(groundChecker.localPosition.x, 0, groundChecker.localPosition.z);
             charController.height = charControllerHeight / 2;
             transform.position = new Vector3(transform.position.x, transform.position.y - (charControllerHeight / 4), transform.position.z);
@@ -79,6 +81,7 @@ public class Movement : MonoBehaviour
 
         if (Input.GetButtonUp("Crouch"))
         {
+            movementSpeedCrouchMultActual = 1;
             groundChecker.localPosition = new Vector3(groundChecker.localPosition.x, groundCheckerYPos, groundChecker.localPosition.z);
             charController.height = charControllerHeight;
             transform.position = new Vector3(transform.position.x, transform.position.y + (charControllerHeight / 4), transform.position.z);
