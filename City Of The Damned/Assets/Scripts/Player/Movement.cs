@@ -61,7 +61,7 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            movementActual.y += gravity;
+            movementActual.y += gravity * Time.deltaTime;
         }
 
         // MOVE THE CHARACTER CONTROLLER
