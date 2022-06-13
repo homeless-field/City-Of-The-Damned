@@ -1,0 +1,1 @@
+This folder is a dumping ground for scripts that aren't quite ready to be deleted, but aren't used anywhere. These scripts may not be properly formatted, may not be commented, and may not work

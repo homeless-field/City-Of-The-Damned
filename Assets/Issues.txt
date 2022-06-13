@@ -1,0 +1,10 @@
+2) Optimize fog of war raycasts
+3) Only certain numbers work for the FogOfWar.cs fog resolution. 180, 90, 72, 120, etc. Others will leave a gap in the raycasts, from roughly 270 degrees to exactly 360
+4) Make FunctionalObject.cs take cursor info from GameSetup.cs
+5) In FogOfWar.cs, edge adjustment is disabled because it's broken
+6) Camera shouldn't track when player jumps. This is hard, because they don't always land on the same level, if it all
+7) Player "adjusts" when moving for the first time
+8) Make enemy detection more consistent
+9) Hard shadows to make seeing depth easier
+10) Crouching should make you move slower
+11) Every FunctionalObject has a different reference to their own version of defaultCursor. Tried serializing it within FunctionalObject.cs, tried putting it in GameManager.cs and referencing that
