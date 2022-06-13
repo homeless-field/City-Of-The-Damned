@@ -196,7 +196,7 @@ MonoBehaviour:
   movementSpeed: 6
   gravity: -9.8
   jumpForce: 1.5
-  movementSpeedJumpMod: 0.5
+  movementSpeedJumpMod: 0.2
   movementSpeedCrouchMult: 0.5
   jumpSpeedMultDuration: 0.75
   groundCheckerRadius: 0.59

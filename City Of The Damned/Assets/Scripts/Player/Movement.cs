@@ -48,7 +48,6 @@ public class Movement : MonoBehaviour
         bool isGrounded = Physics.CheckSphere(groundChecker.position, groundCheckerRadius, groundMask);
         float movementInput = Input.GetAxis("Horizontal");
         movementActual = new Vector3((movementInput + movementSpeedJumpModActual) * movementSpeedCrouchMultActual, movementActual.y, 0);
-        Debug.Log(movementSpeedCrouchMultActual);
 
         // JUMPING AND GRAVITY
         if (isGrounded)
