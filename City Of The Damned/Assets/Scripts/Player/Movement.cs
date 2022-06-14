@@ -66,7 +66,6 @@ public class Movement : MonoBehaviour
 
         // MOVE THE CHARACTER CONTROLLER
         charController.Move(new Vector3(movementActual.x, movementActual.y, 0) * movementSpeed * Time.deltaTime);
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 
         // CROUCHING
         if (Input.GetButtonDown("Crouch"))
